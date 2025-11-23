@@ -1,158 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Search, Home, Tv, Store, Users, MessageCircle, Bell, Menu, 
-  ThumbsUp, MessageSquare, Share2, MoreHorizontal, X, 
-  Image as ImageIcon, Smile, Video, Flag, ChevronDown, Plus,
-  Globe, Heart, ArrowLeft, MapPin, Briefcase, GraduationCap, Lock, Send, Phone
+import React, { useState } from 'react';
+import {
+  Search, Home, Tv, Store, Users, MessageCircle, Bell, ThumbsUp, 
+  MessageSquare, Share2, MoreHorizontal, X, Lock, ArrowLeft, Phone, 
+  Plus, Globe, Heart
 } from 'lucide-react';
 
-// ==========================
-// 1️⃣ 資料設定區（移除 TS 型別）
-// ==========================
-const CURRENT_USER_ID = 'u0';
+// 你的原本 USERS_DB, POSTS, STORIES_LIST 等資料維持不變
+// 🟡 這裡只貼核心 UI 改版區域
 
-const USERS_DB = {
-  "李世民": {
-    id: 'u0',
-    name: "李世民",
-    avatar: "🐲",
-    bio: "大唐 CEO | 天可汗 | 書法愛好者",
-    cover: "bg-gradient-to-r from-yellow-700 to-red-800",
-    verified: true,
-    isPrivate: false,
-    intro: [
-      { icon: <Briefcase size={16} />, text: "皇帝 at 大唐帝國" },
-      { icon: <GraduationCap size={16} />, text: "曾就讀 弘文館" },
-      { icon: <MapPin size={16} />, text: "住在 長安太極宮" },
-    ]
-  },
-  "魏徵": {
-    id: 'u1',
-    name: "魏徵",
-    avatar: "😠",
-    bio: "職業諫官 | 專治各種不服 | 鏡子\n(此帳號已開啟私人模式)",
-    cover: "bg-slate-800",
-    verified: true,
-    isPrivate: true,
-    intro: [
-      { icon: <Briefcase size={16} />, text: "侍中 at 門下省" },
-      { icon: <MapPin size={16} />, text: "住在 長安城" },
-    ]
-  },
-  "長孫皇后": {
-    id: 'u2',
-    name: "長孫皇后",
-    avatar: "👑",
-    bio: "母儀天下 | 觀音婢 | 二郎的賢內助",
-    cover: "bg-pink-800",
-    verified: true,
-    isPrivate: false,
-    intro: [
-      { icon: <Briefcase size={16} />, text: "皇后 at 後宮" },
-      { icon: <Heart size={16} />, text: "配偶：李世民" },
-    ]
-  },
-  "程咬金": {
-    id: 'u3',
-    name: "程咬金",
-    avatar: "🪓",
-    bio: "盧國公 | 福將 | 三板斧",
-    cover: "bg-green-800",
-    verified: true,
-    isPrivate: false,
-    intro: [
-      { icon: <Briefcase size={16} />, text: "大將軍 at 右武衛" },
-    ]
-  },
-  "玄奘": {
-    id: 'u4',
-    name: "玄奘",
-    avatar: "🙏",
-    bio: "不負如來不負卿... 啊不對，是只負如來。",
-    cover: "bg-yellow-600",
-    verified: true,
-    isPrivate: false,
-    intro: [
-      { icon: <MapPin size={16} />, text: "前往 天竺" },
-    ]
-  }
-};
-
-const POSTS = [
-  {
-    id: 1,
-    author: "李世民",
-    time: "剛剛",
-    privacy: "public",
-    content: "剛寫了一幅字，大家看看筆力如何？最近在練王羲之的風格，感覺越來越有心得了。🖊️\n#蘭亭序 #書法 #朕的墨寶",
-    imageType: "calligraphy",
-    likes: 1205,
-    comments: 58,
-    shares: 200,
-    topComments: [
-      { user: "魏徵", text: "陛下，玩物喪志。...", likes: 500 },
-      { user: "長孫皇后", text: "二郎的字越發精進了，氣勢磅礡！❤️", likes: 2000 },
-      { user: "褚遂良", text: "臣甘拜下風！", likes: 100 }
-    ]
-  },
-  // ... 其它貼文（略）
-];
-
-const STORIES_LIST = [
-  { name: "李世民", hasStory: true },
-  { name: "長孫皇后", hasStory: true },
-  { name: "李治(稚奴)", hasStory: true },
-  { name: "武才人", hasStory: true },
-];
-
-const STORIES_CONTENT = {
-  "李世民": [
-    { type: "text", content: "朕今天心情好，\n想去打獵！🏹 🦌", bg: "bg-yellow-700" },
-    { type: "text", content: "魏徵又在罵我了...\n心累 😔", bg: "bg-gray-700" }
-  ],
-  "長孫皇后": [
-    { type: "text", content: "御花園的牡丹開了🌸", bg: "bg-pink-700" }
-  ]
-};
-
-const CHAT_LIST = [
-  { id: 1, name: "魏徵", lastMsg: "陛下，這件事您做錯了！", time: "剛剛", unread: true }
-];
-
-const CHAT_HISTORY = {
-  "魏徵": [
-    { sender: 'them', text: "陛下，聽說您又要修宮殿？" },
-    { sender: 'me', text: "就修一點點..." }
-  ]
-};
-
-// ==========================
-// 2️⃣ 子元件（移除型別）
-// ==========================
-const Header = ({ onNav, unreadCount }) => (
-  <div className="sticky top-0 ...">{/* 原來的內容保留不變 */}</div>
-);
-
-const PostCard = ({ post, onUserClick }) => {
-  const [liked, setLiked] = useState(false);
-  return (
-    <div className="bg-[#242526]">{/* 原內容 */}</div>
-  );
-};
-
-const UserProfile = ({ name, onBack, onUserClick }) => {
-  const user = USERS_DB[name] || {};
-  return (
-    <div>{/* 原內容 */}</div>
-  );
-};
-
-// 其他子元件不限版面，略…
-
-// ==========================
-// 3️⃣ 主程式（完全 JS 版）
-// ==========================
-export default function TangBook() {
+export default function TangTaizongFB() {
   const [view, setView] = useState('home');
   const [param, setParam] = useState('');
   const [storyUser, setStoryUser] = useState(null);
@@ -168,8 +24,100 @@ export default function TangBook() {
   };
 
   return (
-    <div className="bg-[#18191a] min-h-screen">
-      {/* 原畫面架構保持不變 */}
+    <div className="min-h-screen bg-[#F0F2F5] flex justify-center py-6 font-sans">
+      {/* 手機框 */}
+      <div className="w-full max-w-md bg-black rounded-xl shadow-2xl overflow-hidden relative">
+
+        {/* ▓▓▓ Header ▓▓▓ */}
+        <div className="flex justify-between items-center px-4 py-2 bg-black text-white border-b border-gray-700 sticky top-0 z-50">
+          <div className="text-lg font-bold">TangBook</div>
+          <div className="flex gap-3">
+            <Search size={18} />
+            <Bell size={18} />
+          </div>
+        </div>
+
+        {/* ▓▓▓ 內部內容（原始 Facebook UI） ▓▓▓ */}
+        <div className="bg-[#18191a] text-[#e4e6eb] overflow-y-auto h-[calc(100vh-64px)]">
+          
+          {/* ----- 首頁 ----- */}
+          {view === 'home' && (
+            <div className="p-4 space-y-4">
+
+              {/* 建立限時動態 */}
+              <div className="grid grid-cols-4 gap-2 h-36">
+                <div className="bg-[#242526] rounded-xl relative flex flex-col">
+                  <div className="flex-1 bg-gray-700 flex items-center justify-center text-4xl">🐲</div>
+                  <div className="text-center text-xs pb-1">建立動態</div>
+                  <div className="absolute bottom-7 left-1/2 -translate-x-1/2 bg-blue-500 p-1 rounded-full">
+                    <Plus size={16} className="text-white" />
+                  </div>
+                </div>
+                {STORIES_LIST.slice(1).map((s, i) => (
+                  <div key={i}
+                    className="rounded-xl cursor-pointer relative bg-gray-600"
+                    onClick={() => setStoryUser(s.name)}
+                  >
+                    <div className="absolute top-1 left-1 w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-lg">
+                      {USERS_DB[s.name]?.avatar}
+                    </div>
+                    <div className="text-xs absolute bottom-1 left-1">{s.name}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 模擬貼文區 */}
+              {POSTS.map((post) => (
+                <div key={post.id} className="bg-[#242526] rounded-lg p-3">
+                  <div className="flex gap-2">
+                    <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-xl">
+                      {USERS_DB[post.author]?.avatar}
+                    </div>
+                    <div>
+                      <div className="font-semibold">{post.author}</div>
+                      <div className="text-xs text-gray-400">{post.time} · <Globe size={12} /></div>
+                    </div>
+                  </div>
+                  <div className="mt-2">{post.content}</div>
+                  <div className="flex justify-around mt-3 text-sm text-gray-400 border-t border-gray-600 pt-2">
+                    <button className="flex items-center gap-1"><ThumbsUp size={16} />讚</button>
+                    <button className="flex items-center gap-1"><MessageSquare size={16} />留言</button>
+                    <button className="flex items-center gap-1"><Share2 size={16} />分享</button>
+                  </div>
+                </div>
+              ))}
+
+            </div>
+          )}
+
+          {/* ----- 個人頁面 ----- */}
+          {view === 'profile' && (
+            <div className="p-4">
+              <button onClick={() => setView('home')} className="flex items-center gap-2 mb-3">
+                <ArrowLeft size={18} /> 返回
+              </button>
+              <div className="text-xl font-bold">{param}</div>
+              <div className="mt-2 text-sm">此區可呈現唐太宗個人資料</div>
+            </div>
+          )}
+
+          {/* ----- 聊天室 ----- */}
+          {view === 'messages' && (
+            <div className="p-4">
+              <h2 className="text-lg font-bold">Messenger</h2>
+              {CHAT_LIST.map(chat => (
+                <div key={chat.id} className="p-2 rounded hover:bg-[#242526] cursor-pointer">
+                  <div className="flex justify-between">
+                    <span>{chat.name}</span>
+                    <span className="text-xs text-gray-400">{chat.time}</span>
+                  </div>
+                  <div className="text-sm text-gray-400">{chat.lastMsg}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
