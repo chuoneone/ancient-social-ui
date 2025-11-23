@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import MendelFB from "./pages/MendelFB";
 import LiBaiIG from "./pages/LiBai";
+import TangBook from "./pages/TangTaizong";  // ← 加唐太宗
 
 export default function App() {
   return (
@@ -20,12 +21,16 @@ export default function App() {
           <Link to="/li-bai" className="bg-white shadow rounded-lg p-4 hover:bg-gray-100">
             🖋 李白 Instagram
           </Link>
+          <Link to="/tang" className="bg-white shadow rounded-lg p-4 hover:bg-gray-100">
+            👑 唐太宗 Facebook
+          </Link>
         </div>
       </div>
 
       <Routes>
         <Route path="/mendel" element={<MendelFB />} />
         <Route path="/li-bai" element={<LiBaiIG />} />
+        <Route path="/tang" element={<TangBook />} /> {/* ← 新增這行 */}
       </Routes>
     </BrowserRouter>
   );
