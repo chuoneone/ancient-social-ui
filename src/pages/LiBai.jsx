@@ -144,7 +144,7 @@ const FooterNav = ({ active }) => (
 /* ============================================================================
    📲 主組件（李白 IG 完整模擬）
 ============================================================================ */
-export default function LiBai() {
+export default function LiBaiIG() {
   const [currentView, setCurrentView] = useState('home');
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
