@@ -3,8 +3,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import MendelFB from "./pages/MendelFB";
 import LiBaiIG from "./pages/LiBai";  // 等一下會幫你做
-import TangTaizongFB from "./pages/TangTaizong"; 
-import QingLine from "./pages/QingLine";  
+//import TangTaizongFB from "./pages/TangTaizong"; 
+//import QingLine from "./pages/QingLine";  
 
 export default function App() {
   return (
